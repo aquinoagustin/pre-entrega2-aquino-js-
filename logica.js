@@ -8,7 +8,7 @@ let contenedorPassword = document.getElementById('password');
 
 
 // Por defecto llamamos a la funcion para siempre mostrar los estudiantes al comienzo
-renderizarAlumnos(students)
+//renderizarAlumnos(students)
 
 
 
@@ -82,7 +82,49 @@ function enviarDatos(){
 }
 
 
+// Funcion para encontrar al alumno por nombre, el nombre ingresado es pasado a mayuscula
+function encontrarAlumnoNombre(nombreIngresado){
+    const encontrado = students.find((student)=> student.name.toUpperCase() === nombreIngresado)
+    console.log(encontrado)
+    if(encontrado){
+        console.table(encontrado)
+    }
+    else{
+        console.log('Alumno no encontrado')
+    }
+}
+
+
+function filtrarPorOrdenAsc(){
+    students.sort((a,b)=> a.note - b.note)
+    console.table(students)
+}
 
 // Guardamos en el localStorage los datos del usuario
 
 
+//Menu
+
+function main(){
+    let opcion
+    let nombre;
+    do{
+        opcion = parseInt(prompt('Bienvenido eliga una opcion!!!\n1.Mostrar tabla\n2.Filtrar por notas\n3.Encontrar alumno por nombre\n4.Ordenar de menor a mayor nota\n5.Salir'))
+        switch(opcion){
+            case 1:
+                    console.table(students)
+            break;
+            case 2:
+                filtrarPorNotaButton();
+            break;
+            case 3:
+                nombre = prompt('Escriba el nombre del alumno').toUpperCase().trim()
+                encontrarAlumnoNombre(nombre)
+            break;
+            case 4:
+                filtrarPorOrdenAsc()    
+            break;
+        }
+    }while(opcion!=5);
+}
+main()
